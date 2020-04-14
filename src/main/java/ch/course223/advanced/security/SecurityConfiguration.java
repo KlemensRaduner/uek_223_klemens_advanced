@@ -71,6 +71,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		propertyReader = new PropertyReader("jwt.properties");
 
+		http.headers().frameOptions().sameOrigin();
+
 		http.cors().and().csrf().disable().
 				authorizeRequests()
 				.antMatchers("/welcome", "/login", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
