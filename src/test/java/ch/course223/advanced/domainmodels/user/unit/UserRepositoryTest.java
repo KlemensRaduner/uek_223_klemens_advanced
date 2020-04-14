@@ -28,25 +28,33 @@ public class UserRepositoryTest {
     Exercise 3
     There is no real instance of PostgreSQL being involved here. Instead we are making usage of H2.
     Where are the needed credentials to connect to the datalayer fetched from? Does H2 provide a UI to check inserted tuples?
+
+
+    The credentials are found in application-test.properties.
+
+    H2 does provide an UI. You can enable it by putting these two lines into application.properties:
+
+    spring.h2.console.enabled=true
+    spring.h2.console.path=/h2-console
+
+    it runs on localhost:8080/h2-console
+
      */
 
+    String userIdFromDBUser1;
+    String userIdFromDBUser2;
+    List<String> listOfIdsFromDB;
     @Autowired
     private TestEntityManager testEntityManager;
-
     @Autowired
     private UserRepository userRepository;
-
     private User userToBeTestedAgainst1;
     private User userToBeTestedAgainst2;
     private User newUserToBeSaved;
     private List<User> listOfUsersToBeTestedAgainst;
 
-    String userIdFromDBUser1;
-    String userIdFromDBUser2;
-    List<String> listOfIdsFromDB;
-
     @Before
-    public void setUp(){
+    public void setUp() {
         Set<Authority> authoritiesToBeTestedAgainst = Stream.of(new Authority().setName("USER_SEE"), new Authority().setName("USER_CREATE"), new Authority().setName("USER_MODIFY"), new Authority().setName("USER_DELETE")).collect(Collectors.toSet());
         Set<Role> rolesToBeTestedAgainst = Stream.of(new Role().setName("BASIC_USER").setAuthorities(authoritiesToBeTestedAgainst)).collect(Collectors.toSet());
         userToBeTestedAgainst1 = new User().setFirstName("John").setLastName("Doe").setEmail("john.doe@noseryoung.ch").setEnabled(true).setPassword(new BCryptPasswordEncoder().encode(UUID.randomUUID().toString())).setRoles(rolesToBeTestedAgainst);
@@ -87,7 +95,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void create_deliverUserToCreate_returnCreatedUser(){
+    public void create_deliverUserToCreate_returnCreatedUser() {
         User savedUser = userRepository.save(newUserToBeSaved);
 
         Assertions.assertThat(testEntityManager.find(User.class, savedUser.getId())).isEqualTo(newUserToBeSaved);
@@ -101,7 +109,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void updateUserById_requestUserToBeUpdated_returnUpdatedUser(){
+    public void updateUserById_requestUserToBeUpdated_returnUpdatedUser() {
         User updatedUser = userRepository.save(userToBeTestedAgainst1);
 
         Assertions.assertThat(testEntityManager.find(User.class, updatedUser.getId())).isEqualTo(updatedUser);
@@ -115,7 +123,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void deleteUserById_requestADeletionOfUserById_returnAppropriateState(){
+    public void deleteUserById_requestADeletionOfUserById_returnAppropriateState() {
         String userIdFromDB = testEntityManager.persistAndGetId(userToBeTestedAgainst1, String.class);
 
         userRepository.deleteById(userIdFromDB);
