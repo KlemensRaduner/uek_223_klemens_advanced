@@ -9,10 +9,10 @@ stages:
 
 before_install:
   - chmod +x gradlew
-  - apt-get update
+  - sudo apt-get update
 
 install:
-  - apt install curl
+  - sudo apt install curl
   - npm install -g newman
 
 addons:
