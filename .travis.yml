@@ -1,10 +1,10 @@
-language: java
+language: node_js
 
 jdk:
   - openjdk11
 
 node_js:
-  - lts/*
+  - 10
 
 stages:
   #- continousIntegration
