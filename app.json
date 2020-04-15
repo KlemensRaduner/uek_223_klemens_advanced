@@ -1,0 +1,7 @@
+{
+  "name": "Node.js Sample",
+  "description": "uek223advanced",
+  "repository": "$GIT_REPOSITORY",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["uek223"]
+}
