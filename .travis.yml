@@ -33,4 +33,6 @@ jobs:
         app: $HEROKU_STAGING_APP
       after_success:
       script:
+        - pwd
+        - ls
         - newman run src/test/java/systemtests/collection/CRUD.postman_collection -e src/test/java/systemtests/environement/uk223.postman_environment.json
