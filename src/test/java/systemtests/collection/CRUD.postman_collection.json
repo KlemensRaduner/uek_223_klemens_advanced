@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "1e3cb216-3a40-4184-a48e-7198aa0637f6",
+		"name": "CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc819c84-ffff-4e27-bda7-d2e6f6a750fe",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Body is corret\", function(){",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.id).not.to.eql(null)",
+							"    pm.expect(body.email).to.eql(JSON.parse(pm.variables.get(\"userDTO\")).email);",
+							"    pm.expect(body.firstName).to.eql(JSON.parse(pm.variables.get(\"userDTO\")).firstName);",
+							"    pm.expect(body.lastName).to.eql(JSON.parse(pm.variables.get(\"userDTO\")).lastName);",
+							"    pm.environment.set(\"createdUser\", JSON.stringify(body));",
+							"    pm.environment.set(\"createdUserId\", body.id);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{userDTO}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://uk223advancedklemens.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"uk223advancedklemens",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e1123b0-ebe4-48ae-9327-58fce38cb92c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Body is corret\", function(){",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.id).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).id);",
+							"    pm.expect(body.email).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).email);",
+							"    pm.expect(body.firstName).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).firstName);",
+							"    pm.expect(body.lastName).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).lastName);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://uk223advancedklemens.herokuapp.com/users/{{createdUserId}}",
+					"protocol": "https",
+					"host": [
+						"uk223advancedklemens",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{createdUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3c751b7a-209b-4d80-93b0-9b9c00e6e36a",
+						"exec": [
+							"let x = JSON.parse(pm.variables.get(\"createdUser\"));",
+							"x.firstName = \"Jens\";",
+							"x.lastName =\"Scheidmann\";",
+							"x.email= \"jens.schneidmann@noseryoung.com\"",
+							"pm.environment.set(\"createdUser\", JSON.stringify(x));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b48a878d-6b01-473e-b450-5bef24708a91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Body is corret\", function(){",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.id).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).id);",
+							"    pm.expect(body.email).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).email);",
+							"    pm.expect(body.firstName).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).firstName);",
+							"    pm.expect(body.lastName).to.eql(JSON.parse(pm.variables.get(\"createdUser\")).lastName);",
+							" ",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{createdUser}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://uk223advancedklemens.herokuapp.com/users/{{createdUserId}}",
+					"protocol": "https",
+					"host": [
+						"uk223advancedklemens",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{createdUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a7e3060-5c2b-4685-a80d-930fb10ec32e",
+						"exec": [
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"pm.test(\"Response body is null\", function () {",
+							"    pm.responseBody === null",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://uk223advancedklemens.herokuapp.com/users/{{createdUserId}}",
+					"protocol": "https",
+					"host": [
+						"uk223advancedklemens",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{createdUserId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
