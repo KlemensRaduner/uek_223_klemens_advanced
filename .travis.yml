@@ -11,7 +11,8 @@ before_install:
   - chmod +x gradlew
 
 install:
-  - apt get curl -y
+  - sudo apt-get update
+  - sudo apt get curl -y
   - npm install -g newman
 
 addons:
