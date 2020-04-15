@@ -1,6 +1,6 @@
 jdk:
   - openjdk11
-
+language: java
 stages:
   - buildAutomationAndIntegrationTest
   - continousDelivery
