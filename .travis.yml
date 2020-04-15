@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get update
 
 install:
-  - sudo apt get curl
+  - sudo apt-get curl
   - npm install -g newman
 
 addons:
