@@ -12,7 +12,7 @@ before_install:
 
 install:
   - sudo apt-get update
-  - sudo apt get curl -y
+  - sudo apt get curl
   - npm install -g newman
 
 addons:
@@ -31,5 +31,5 @@ jobs:
         app: $HEROKU_STAGING_APP
       after_success:
       script:
-        - while [ $(curl -o /dev/null -s -w "%{http_code}\n" https://$HEROKU_STAGING_APP.herokuapp.com/) != 404 ];do echo 'Waiting for the Application to be started'; sleep 5; done
+        - while [ $(curl -o /dev/null -s -w "%{http_code}\n" https://uk223advancedklemens.herokuapp.com/) != 404 ];do echo 'Waiting for the Application to be started'; sleep 5; done
         - newman run src/test/java/systemtests/collection/CRUD.postman_collection.json -e src/test/java/systemtests/environement/uk223.postman_environment.json
