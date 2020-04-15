@@ -10,6 +10,9 @@ stages:
 before_install:
   - chmod +x gradlew
 
+install:
+  - npm install -g newman
+
 addons:
   sonarcloud:
     organization: $SONAR_USER
@@ -25,4 +28,4 @@ jobs:
         api-key: $HEROKU_API_KEY
         app: $HEROKU_STAGING_APP
       after_success:
-      script: node_modules/.bin/newman run src/test/java/systemtests/collection/CRUD.postman_collection -e src/test/java/systemtests/environement/uk223.postman_environment.json
+      script: newman run src/test/java/systemtests/collection/CRUD.postman_collection -e src/test/java/systemtests/environement/uk223.postman_environment.json
