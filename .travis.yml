@@ -7,7 +7,7 @@ jdk:
 
 
 stages:
-  - continousIntegration
+  #- continousIntegration
   - continousDelivery
 
 before_install:
@@ -23,8 +23,8 @@ addons:
 
 jobs:
   include:
-    - stage: continousIntegration
-      script: ./gradlew sonarqube
+    #- stage: continousIntegration
+     # script: ./gradlew sonarqube
     - stage: continousDelivery
       deploy:
         provider: heroku
