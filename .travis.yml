@@ -13,6 +13,7 @@ before_install:
 
 install:
   - npm install -g n
+  - node -v
   - npm install -g newman
 
 addons:
