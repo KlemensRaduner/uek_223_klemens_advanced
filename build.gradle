@@ -69,10 +69,11 @@ bootJar {
 	archiveFileName.set("app.jar")
 }
 
+
 sonarqube {
-  properties {
-    property "sonar.projectKey", "yagan93_uek_223_advanced"
-  }
+	properties {
+		property "sonar.projectKey", "KlemensRaduner_uek_223_klemens_advanced"
+	}
 }
 
 test {
