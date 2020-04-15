@@ -1,7 +1,7 @@
 {
   "name": "Node.js Sample",
   "description": "uek223advanced",
-  "repository": "$GIT_REPOSITORY",
+  "repository": "https://github.com/KlemensRaduner/uek_223_klemens_advanced",
   "logo": "https://node-js-sample.herokuapp.com/node.png",
   "keywords": ["uek223"]
 }
