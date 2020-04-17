@@ -2,6 +2,7 @@ package ch.course223.advanced.domainmodels.user;
 
 import ch.course223.advanced.core.ExtendedNodeEntity;
 import ch.course223.advanced.domainmodels.role.Role;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
@@ -12,6 +13,7 @@ import java.util.List;
 @NodeEntity
 public class User extends ExtendedNodeEntity {
 
+    @UniqueElements
     @Property("email")
     private String email;
 
