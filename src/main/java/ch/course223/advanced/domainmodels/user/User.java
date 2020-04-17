@@ -8,7 +8,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
 
 
 @NodeEntity
@@ -33,8 +36,8 @@ public class User extends ExtendedNodeEntity {
     @Property("locked")
     private boolean locked;
 
-    @Relationship(type = "HAS_ROLE")
-    private List<Role> roles;
+    @Relationship(type = "HAS_ROLE", direction = OUTGOING)
+    private List<Role> roles = new ArrayList<>();
 
 
     public String getEmail() {
