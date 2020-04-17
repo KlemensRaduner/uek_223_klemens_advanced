@@ -1,9 +1,7 @@
 package ch.course223.advanced.security;
 
 import ch.course223.advanced.domainmodels.user.User;
-import ch.course223.advanced.domainmodels.user.UserDTO;
 import ch.course223.advanced.domainmodels.user.UserDetailsImpl;
-import ch.course223.advanced.domainmodels.user.mapper.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,18 +22,15 @@ import java.util.Date;
 class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
 	private PropertyReader propertyReader;
-	private UserMapper userMapper;
 
 	JWTAuthenticationFilter(
 			RequestMatcher requiresAuthenticationRequestMatcher,
 			AuthenticationManager authenticationManager,
-			PropertyReader propertyReader,
-			UserMapper userMapper
+			PropertyReader propertyReader
 	) {
 		super(requiresAuthenticationRequestMatcher);
 		setAuthenticationManager(authenticationManager);
 		this.propertyReader = propertyReader;
-		this.userMapper = userMapper;
 	}
 
 	@Override
@@ -57,10 +52,10 @@ class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 		// Adds the UserDetailsImpl logic to the authenticated user
 		UserDetailsImpl userDetailsImpl = (UserDetailsImpl) auth.getPrincipal();
 		User user = userDetailsImpl.getUser();
-		String subject = user.getId();
+		long subject = user.getId();
 
 		// Builds the JWT
-		String token = Jwts.builder().setSubject(subject)
+		String token = Jwts.builder().setSubject(""+subject)
 				.setExpiration(
 						new Date(System.currentTimeMillis() + propertyReader.getIntProperty("jwt.expiration-time")))
 				.signWith(SignatureAlgorithm.HS512, propertyReader.getStringProperty("jwt.secret").getBytes())
@@ -71,10 +66,8 @@ class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 		// Expose the Headers
 		res.addHeader("Access-Control-Expose-Headers", propertyReader.getStringProperty("jwt.header-string") );
 
-		// Put the user's ID and roles into the response body
-		UserDTO userDTO = userMapper.toDTO(user);
 
-		String userDTOString = new ObjectMapper().writeValueAsString(userDTO);
+		String userDTOString = new ObjectMapper().writeValueAsString(user);
 
 		res.getWriter().write(userDTOString);
 

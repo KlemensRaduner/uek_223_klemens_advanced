@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-04-16T08:42:46" hostname="LAPTOP-52QGNF7J" time="0.401">
+  <properties/>
+  <testcase name="findAll_requestAllUsers_returnsAllUsers" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.1"/>
+  <testcase name="updateUserById_requestUserDTOToBeUpdated_returnUpdatedUserDTO" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.215"/>
+  <testcase name="deleteUserById_requestADeletionOfUserById_returnAppropriateState" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.011"/>
+  <testcase name="updateUserById_requestUserDTOWithWrongEmailToBeUpdated_returnBadRequest" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.04"/>
+  <testcase name="findById_requestUserById_returnsUser" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.011"/>
+  <testcase name="create_deliverUserDTOToCreate_returnCreatedUserDTO" classname="ch.course223.advanced.domainmodels.user.unit.UserControllerTest" time="0.018"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.6.RELEASE)
+
+2020-04-16 10:42:44.295  INFO 6760 --- [    Test worker] c.c.a.d.user.unit.UserControllerTest     : Starting UserControllerTest on LAPTOP-52QGNF7J with PID 6760 (started by kleme in C:\Users\kleme\OneDrive\Dokumente\GitHub\uek_223_klemens_advanced)
+2020-04-16 10:42:44.296  INFO 6760 --- [    Test worker] c.c.a.d.user.unit.UserControllerTest     : No active profile set, falling back to default profiles: default
+2020-04-16 10:42:44.601  INFO 6760 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-04-16 10:42:44.676  INFO 6760 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 74ms. Found 4 JPA repository interfaces.
+2020-04-16 10:42:45.056  INFO 6760 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-04-16 10:42:45.070  INFO 6760 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2020-04-16 10:42:45.073  INFO 6760 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2020-04-16 10:42:45.073  INFO 6760 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-04-16 10:42:45.199  INFO 6760 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-04-16 10:42:45.199  INFO 6760 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-04-16 10:42:45.277  WARN 6760 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-04-16 10:42:45.515  INFO 6760 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@68c398d9, org.springframework.security.web.context.SecurityContextPersistenceFilter@321619c6, org.springframework.security.web.header.HeaderWriterFilter@557421cb, org.springframework.web.filter.CorsFilter@4289f3ea, org.springframework.security.web.authentication.logout.LogoutFilter@eeaa2c5, ch.course223.advanced.security.JWTAuthenticationFilter@379ef74a, ch.course223.advanced.security.JWTAuthorizationFilter@27d59fc6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@cb0a01b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@783ea23f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5324deb5, org.springframework.security.web.session.SessionManagementFilter@44161d81, org.springframework.security.web.access.ExceptionTranslationFilter@31a1f728, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3ff5e5ca]
+2020-04-16 10:42:45.899  INFO 6760 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-16 10:42:46.243  INFO 6760 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-04-16 10:42:46.243  INFO 6760 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-04-16 10:42:46.253  INFO 6760 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 9 ms
+2020-04-16 10:42:46.262  INFO 6760 --- [    Test worker] c.c.a.d.user.unit.UserControllerTest     : Started UserControllerTest in 2.005 seconds (JVM running for 15.519)
+2020-04-16 10:42:46.634  WARN 6760 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [1] in public org.springframework.http.ResponseEntity<ch.course223.advanced.domainmodels.user.UserDTO> ch.course223.advanced.domainmodels.user.UserController.updateById(java.lang.String,ch.course223.advanced.domainmodels.user.UserDTO): [Field error in object 'userDTO' on field 'email': rejected value [gugus]; codes [Email.userDTO.email,Email.email,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDTO.email,email]; arguments []; default message [email],[Ljavax.validation.constraints.Pattern$Flag;@15b84bc3,.*]; default message [must be a well-formed email address]] ]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -41,7 +41,7 @@ class JWTAuthorizationFilter extends OncePerRequestFilter {
 		String subject;
 
 		try {
-			subject = Jwts.parser()
+			subject =Jwts.parser()
 					.setSigningKey(propertyReader.getStringProperty("jwt.secret").getBytes())
 					.parseClaimsJws(header.replace(propertyReader.getStringProperty("jwt.token-prefix"), "")).getBody()
 					.getSubject();
@@ -50,7 +50,7 @@ class JWTAuthorizationFilter extends OncePerRequestFilter {
 		}
 		
 		if (subject != null) {
-			UserDetailsImpl userDetails = new UserDetailsImpl(userService.findById(subject));
+			UserDetailsImpl userDetails = new UserDetailsImpl(userService.findById(Long.parseLong(subject)));
 			return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 		}
 		return null;

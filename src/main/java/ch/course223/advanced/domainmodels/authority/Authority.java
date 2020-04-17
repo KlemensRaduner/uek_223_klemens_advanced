@@ -1,16 +1,14 @@
 package ch.course223.advanced.domainmodels.authority;
 
-import ch.course223.advanced.core.ExtendedEntity;
+import ch.course223.advanced.core.ExtendedNodeEntity;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "authority")
-public class Authority extends ExtendedEntity {
+@NodeEntity
+public class Authority extends ExtendedNodeEntity {
 
-  @Column(name = "name", nullable = false)
+  @Property("name")
   private String name;
 
   public Authority() {

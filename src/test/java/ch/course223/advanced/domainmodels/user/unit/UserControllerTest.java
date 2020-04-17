@@ -1,11 +1,9 @@
 package ch.course223.advanced.domainmodels.user.unit;
 
 import ch.course223.advanced.domainmodels.authority.Authority;
-import ch.course223.advanced.domainmodels.authority.AuthorityDTO;
 import ch.course223.advanced.domainmodels.role.Role;
 import ch.course223.advanced.domainmodels.role.RoleDTO;
 import ch.course223.advanced.domainmodels.user.User;
-import ch.course223.advanced.domainmodels.user.UserDTO;
 import ch.course223.advanced.domainmodels.user.UserService;
 import ch.course223.advanced.error.BadRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;

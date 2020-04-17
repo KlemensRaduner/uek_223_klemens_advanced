@@ -3,6 +3,8 @@ package ch.course223.advanced;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+
 
 @SpringBootApplication
 public class Main {
@@ -11,5 +13,7 @@ public class Main {
 
 		ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
 	}
+
+
 
 }

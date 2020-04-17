@@ -1,11 +1,9 @@
 package ch.course223.advanced.domainmodels.user.integration;
 
 import ch.course223.advanced.domainmodels.authority.Authority;
-import ch.course223.advanced.domainmodels.authority.AuthorityDTO;
 import ch.course223.advanced.domainmodels.role.Role;
 import ch.course223.advanced.domainmodels.role.RoleDTO;
 import ch.course223.advanced.domainmodels.user.User;
-import ch.course223.advanced.domainmodels.user.UserDTO;
 import ch.course223.advanced.domainmodels.user.UserRepository;
 import org.hamcrest.Matchers;
 import org.junit.Before;

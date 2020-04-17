@@ -1,16 +1,15 @@
 package ch.course223.advanced.domainmodels.user;
 
-import ch.course223.advanced.core.ExtendedJpaRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import ch.course223.advanced.core.ExtendedNeo4jRepository;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends ExtendedJpaRepository<User> {
-    @Transactional
-    @Query(nativeQuery = true, value = "select * from public.users where email = ? and enabled = 1")
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends ExtendedNeo4jRepository<User> {
+
+    @Query("MATCH (u:User) where u.email = email RETURN u LIMIT 1")
+    Optional<User> findByEmail(@Param("email") String email);
 }

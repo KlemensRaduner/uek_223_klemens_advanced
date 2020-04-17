@@ -1,6 +1,6 @@
 package ch.course223.advanced.domainmodels.user;
 
-import ch.course223.advanced.core.ExtendedJpaRepository;
+import ch.course223.advanced.core.ExtendedNeo4jRepository;
 import ch.course223.advanced.core.ExtendedServiceImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 @Service
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService{
 
-    public UserServiceImpl(ExtendedJpaRepository<User> repository) {
+    public UserServiceImpl(ExtendedNeo4jRepository<User> repository) {
         super(repository);
     }
 

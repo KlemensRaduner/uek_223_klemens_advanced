@@ -1,48 +1,41 @@
 package ch.course223.advanced.domainmodels.role;
 
-import ch.course223.advanced.core.ExtendedEntity;
+import ch.course223.advanced.core.ExtendedNodeEntity;
 import ch.course223.advanced.domainmodels.authority.Authority;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 
-import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
-@Entity
-@Table(name = "role")
-public class Role extends ExtendedEntity {
+@NodeEntity
+public class Role extends ExtendedNodeEntity {
 
-  @Column(name = "name", nullable = false)
-  private String name;
+    @Property("name")
+    private String name;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  @JoinTable(
-          name = "role_authority",
-          joinColumns = @JoinColumn(name = "role_id"),
-          inverseJoinColumns = @JoinColumn(name = "authority_id")
-  )
-  private Set<Authority> authorities;
+    @Relationship(type = "HAS_AUTHORITY")
+    private List<Authority> authorities;
 
-  public Role() {
-    super();
-  }
+    public Role() {
+        super();
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public Role setName(String name) {
-    this.name = name;
-    return this;
-  }
+    public Role setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-  public Set<Authority> getAuthorities() {
-    return authorities;
-  }
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
 
-  public Role setAuthorities(Set<Authority> authorities) {
-    this.authorities = authorities;
-    return this;
-  }
+    public Role setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+        return this;
+    }
 }

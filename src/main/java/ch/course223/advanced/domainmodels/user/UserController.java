@@ -1,6 +1,5 @@
 package ch.course223.advanced.domainmodels.user;
 
-import ch.course223.advanced.domainmodels.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,45 +14,41 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-    private UserMapper userMapper;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER_SEE')")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+    public ResponseEntity<User> findById(@PathVariable long id) {
         User user = userService.findById(id);
-        return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping({"", "/"})
     @PreAuthorize("hasAuthority('USER_SEE')")
-    public @ResponseBody ResponseEntity<List<UserDTO>> findAll() {
+    public @ResponseBody ResponseEntity<List<User>> findAll() {
         List<User> users = userService.findAll();
-        return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping("")
     @PreAuthorize("hasAuthority('USER_CREATE')")
-    public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO user) {
-        user = userMapper.toDTO(userService.save(userMapper.fromDTO(user)));
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<User> create(@Valid @RequestBody User user) {
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('USER_MODIFY')")
-    public ResponseEntity<UserDTO> updateById(@PathVariable String id, @Valid @RequestBody UserDTO userDTO) {
-        User user = userService.updateById(id, userMapper.fromDTO(userDTO));
-        return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
+    public ResponseEntity<User> updateById(@PathVariable long id, @Valid @RequestBody User user) {
+        return new ResponseEntity<>(userService.updateById(id, user), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER_DELETE')")
-    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteById(@PathVariable long id) {
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public abstract class ExtendedServiceImpl<T extends ExtendedEntity> implements ExtendedService<T> {
+public abstract class ExtendedServiceImpl<T extends ExtendedNodeEntity> implements ExtendedService<T> {
 
-	protected ExtendedJpaRepository<T> repository;
+	protected ExtendedNeo4jRepository<T> repository;
 
 
-	public ExtendedServiceImpl(ExtendedJpaRepository<T> repository) {
+	public ExtendedServiceImpl(ExtendedNeo4jRepository<T> repository) {
 		this.repository = repository;
 	}
 
@@ -21,7 +21,7 @@ public abstract class ExtendedServiceImpl<T extends ExtendedEntity> implements E
 	}
 
 	@Override
-	public Void deleteById(String id) throws NoSuchElementException {
+	public Void deleteById(long id) throws NoSuchElementException {
 		if(repository.existsById(id)) {
 			repository.deleteById(id);
 		} else {
@@ -31,7 +31,7 @@ public abstract class ExtendedServiceImpl<T extends ExtendedEntity> implements E
 	}
 
 	@Override
-	public T updateById(String id, T entity) throws NoSuchElementException, BadRequestException {
+	public T updateById(long id, T entity) throws NoSuchElementException, BadRequestException {
 		if(repository.existsById(id)) {
 			checkUpdatedEntityId(id, entity);
 
@@ -44,16 +44,16 @@ public abstract class ExtendedServiceImpl<T extends ExtendedEntity> implements E
 
 	@Override
 	public List<T> findAll() {
-		return repository.findAll();
+		return (List)repository.findAll();
 	}
 
 	@Override
-	public T findById(String id) {
+	public T findById(long id) {
 		return findOrThrow(repository.findById(id));
 	}
 
 	@Override
-	public boolean existsById(String id) {
+	public boolean existsById(long id) {
 		return repository.existsById(id);
 	}
 
@@ -65,10 +65,10 @@ public abstract class ExtendedServiceImpl<T extends ExtendedEntity> implements E
 		}
 	}
 
-	protected void checkUpdatedEntityId(String id, T entity) throws BadRequestException {
+	protected void checkUpdatedEntityId(long id, T entity) throws BadRequestException {
 
-		if(entity.getId() != null) {
-			if(!id.equals(entity.getId())) {
+		if(entity.getId() != 0) {
+			if(id != entity.getId()) {
 				throw new BadRequestException(String.format("Path variable ID '%s' and Request body ID '%s' are not equal", id, entity.getId()));
 			}
 		}

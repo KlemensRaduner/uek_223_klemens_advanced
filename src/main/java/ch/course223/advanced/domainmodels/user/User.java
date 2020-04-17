@@ -1,59 +1,46 @@
 package ch.course223.advanced.domainmodels.user;
 
-import ch.course223.advanced.core.ExtendedEntity;
+import ch.course223.advanced.core.ExtendedNodeEntity;
 import ch.course223.advanced.domainmodels.role.Role;
-import ch.course223.advanced.validation.notnull.NotNull;
-import org.hibernate.annotations.Type;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
-@Entity
-@Table(name = "users")
-public class User extends ExtendedEntity {
 
-    @Column(name = "first_name")
-    private String firstName;
+@NodeEntity
+public class User extends ExtendedNodeEntity {
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "password")
-    private String password;
-
-    @NotNull
-    @Column(name = "email", unique = true, nullable = false)
+    @Property("email")
     private String email;
 
-    @Column(name = "account_expiration_date")
-    private LocalDate accountExpirationDate;
+    @Property("firstname")
+    private String firstName;
 
-    @Column(name = "credentials_expiration_date")
-    private LocalDate credentialsExpirationDate;
+    @Property("lastname")
+    private String lastName;
 
-    @Column(name = "locked")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean locked;
+    @Property("password")
+    private String password;
 
-    @Column(name = "enabled")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean enabled;
+    @Property("enabled")
+    private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_role",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    @Property("locked")
+    private boolean locked;
 
-    public User(String id) {
-        super(id);
+    @Relationship(type = "HAS_ROLE")
+    private List<Role> roles;
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public User() {
-
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     public String getFirstName() {
@@ -83,56 +70,29 @@ public class User extends ExtendedEntity {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public LocalDate getAccountExpirationDate() {
-        return accountExpirationDate;
-    }
-
-    public User setAccountExpirationDate(LocalDate accountExpirationDate) {
-        this.accountExpirationDate = accountExpirationDate;
-        return this;
-    }
-
-    public LocalDate getCredentialsExpirationDate() {
-        return credentialsExpirationDate;
-    }
-
-    public User setCredentialsExpirationDate(LocalDate credentialsExpirationDate) {
-        this.credentialsExpirationDate = credentialsExpirationDate;
-        return this;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public User setLocked(Boolean locked) {
-        this.locked = locked;
-        return this;
-    }
-
-    public Boolean getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public User setEnabled(Boolean enabled) {
+    public User setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
-    public Set<Role> getRoles() {
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public User setLocked(boolean locked) {
+        this.locked = locked;
+        return this;
+    }
+
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public User setRoles(Set<Role> roles) {
+    public User setRoles(List<Role> roles) {
         this.roles = roles;
         return this;
     }
